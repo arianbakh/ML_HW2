@@ -20,7 +20,6 @@ CHARACTER_SHAPE = (9, 7)
 # Parameters
 BINARY_THETA = 0
 BIPOLAR_THETA = 0
-INPUT_LIMIT = 100
 
 
 def _get_input_vector(input_file_path):
@@ -41,7 +40,7 @@ def _get_input_vector(input_file_path):
     return input_vector
 
 
-def _get_input_vectors(mode):
+def _get_input_vectors(mode, input_limit):
     if mode == 'binary':
         training_data_dir = BINARY_DIR
     else:
@@ -57,7 +56,7 @@ def _get_input_vectors(mode):
 
             yield input_vector
             inputs += 1
-            if inputs >= INPUT_LIMIT:
+            if inputs >= input_limit:
                 return
 
 
@@ -104,8 +103,8 @@ def _pretty_print(character_vector):
         print(line_string)
 
 
-def run(mode):
-    input_vectors = _get_input_vectors(mode)
+def run(mode, input_limit):
+    input_vectors = _get_input_vectors(mode, input_limit)
     w = _get_w(input_vectors, mode)
     if mode == 'binary':
         binary_input_vector = _get_input_vector(BINARY_TEST_PATH)
@@ -117,14 +116,19 @@ def run(mode):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 3:
         print('Invalid Number of Arguments')
         exit()
 
+    mode_argument = None
     if sys.argv[1] == 'binary':
-        run('binary')
+        mode_argument = 'binary'
     elif sys.argv[1] == 'bipolar':
-        run('bipolar')
+        mode_argument = 'bipolar'
     else:
         print('Invalid Argument')
         exit()
+
+    input_limit_argument = int(sys.argv[2])
+
+    run(mode_argument, input_limit_argument)

@@ -8,4 +8,4 @@
 
 # Getting Started
 
-1. `python3 main.py binary` or `python3 main.py bipolar`
+1. `python3 main.py [mode] [input_limit]` e.g. `python3 main.py binary 3`
