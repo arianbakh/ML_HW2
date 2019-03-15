@@ -99,7 +99,6 @@ def _pretty_print(character_vector):
                 line_string += '#  '
             else:
                 line_string += '-  '
-        line_string += '\n'
         print(line_string)
 
 
